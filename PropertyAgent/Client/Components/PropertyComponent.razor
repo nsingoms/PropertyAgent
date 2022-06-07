@@ -1,0 +1,39 @@
+﻿@inject IProperty PropertyService
+<div class="col-md-3"><div class="card">
+
+        @if (property.Photos.Count > 0)
+        {
+               @foreach(var photo in property.Photos)
+            {    
+         <img src="@photo.Url" class="card-img" />
+            }
+        }
+        else
+        {
+             <img src="/houseimg.jpg" class="card-img" />
+        }
+
+    <div class="card-footer">
+        <p>@property.Title</p>
+        <p>@property.Description</p>
+         <p>@property.Location</p>
+         
+         <div class="btn-group">
+             <a class="btn btn-primary" href="@($"properties/edit/{property.Id}")">Edit</a>
+             <button class="btn btn-primary" @onclick="DeleteProperty">Delete</button>
+         </div>
+                   
+    </div>
+     
+</div></div>
+
+@code {
+    [Parameter]
+    public PropertyDto property { get; set; }
+
+    private async Task DeleteProperty()
+    {
+        await PropertyService.DeletePropertyAsync(property.Id);
+        StateHasChanged();
+    }
+}

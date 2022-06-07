@@ -1,0 +1,52 @@
+﻿@page "/Properties/AddProperty"
+@inject IProperty PropertyService
+@inject NavigationManager NavigationManager
+
+<div class="container">
+   
+    <div class="row">
+        <div class="col-md-6"> 
+            <h1>Add Property</h1>
+            <EditForm Model="model" OnValidSubmit="AddPropertyAsync">
+                <div class="form-group">
+                    <label>Title</label>
+                    <InputText class="form-control" @bind-Value="model.Title" placeholder="Title"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <InputTextArea class="form-control"  @bind-Value="model.Description" rows="5"></InputTextArea>
+                </div>
+                <div class="form-group">
+                    <label for="price">Location</label>
+                    <InputText class="form-control" @bind-Value="model.Location" placeholder="Location"></InputText>
+                </div>
+                 <div class="form-group mt-3 ">
+                     <PhotoEditor OnChange="AssignImageUrl"></PhotoEditor>
+               </div>
+                <div class="form-group mt-3">
+                    <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+             </EditForm>
+             </div>
+           </div>
+
+  
+  </div>
+ 
+@code{
+    PropertyDto model = new();
+    PhotoDto _photoDto = new PhotoDto();
+    private void AssignImageUrl(string imgUrl) => _photoDto.Url = imgUrl;
+
+    async Task AddPropertyAsync()
+    {
+
+        model.Photos.Add(_photoDto);
+        await PropertyService.CreatePropertyAsync(model);
+         NavigationManager.NavigateTo("/Properties/");
+    }
+
+   
+   }
+                    
+               

@@ -1,0 +1,42 @@
+﻿@page "/properties/edit/{id:int}"
+@inject IProperty PropertyService
+
+<EditForm Model="_propertyDto" OnValidSubmit="EditPropertyAsync">
+    <div class="form-group">
+                    <label>Title</label>
+                    <InputText class="form-control" @bind-Value="_propertyDto.Title" placeholder="Title"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <InputTextArea class="form-control"  @bind-Value="_propertyDto.Description" rows="5"></InputTextArea>
+                </div>
+                <div class="form-group">
+                    <label for="price">Location</label>
+                    <InputText class="form-control" @bind-Value="_propertyDto.Location" placeholder="Location"></InputText>
+                </div>
+                 <div class="form-group mt-3 ">
+                     <PhotoEditor OnChange="AssignImageUrl"></PhotoEditor>
+               </div>
+                <div class="form-group mt-3">
+                    <button class="btn btn-success" type="submit">Update</button>
+                    </div>
+</EditForm>
+@code {
+    PropertyDto _propertyDto = new();
+
+    [Parameter]
+    public int Id{ get; set; }
+     PhotoDto _photoDto = new PhotoDto();
+    private void AssignImageUrl(string imgUrl) => _photoDto.Url = imgUrl;
+    protected override async Task OnInitializedAsync()
+    {
+        _propertyDto = await PropertyService.GetPropertyAsync(Id);
+    }
+
+    private async Task EditPropertyAsync()
+    {
+     await PropertyService.UpdatePropertyAsync(_propertyDto);
+        
+        StateHasChanged();
+    }
+}

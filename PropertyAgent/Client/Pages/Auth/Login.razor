@@ -1,0 +1,37 @@
+﻿@page "/login"
+@inject IAuthServices AuthenticationService
+@inject NavigationManager NavigationManager
+
+<EditForm Model="LoginDto" OnValidSubmit="LoginAsync" class="col-md-4">
+    <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <InputText @bind-Value="LoginDto.Email" class="form-control"></InputText>
+    </div>
+     <div class="mb-3">
+        <label class="form-label">Password</label>
+        <InputText typeof="password" @bind-Value="LoginDto.Password" class="form-control"></InputText>
+    </div>
+     <div class="mb-3">
+       <button type="submit" class="btn btn-success btn-lg">Login</button>
+    </div>
+</EditForm>
+@code {
+
+    LoginDto LoginDto = new LoginDto();
+    
+    async Task LoginAsync()
+    {
+        
+          var result = await AuthenticationService.LoginAsync(LoginDto);
+				if(result is not null)
+				  {
+				     NavigationManager.NavigateTo("/");
+                  }
+                else
+				 {
+					
+				 }          
+        
+    }
+
+}

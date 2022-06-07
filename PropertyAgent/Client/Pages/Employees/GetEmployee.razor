@@ -1,0 +1,25 @@
+﻿@page "/employees/{id}"
+@inject IEmployeeService employeeService
+<h3>Employee Details</h3>
+<div>
+    <div>
+        <label>Name:</label>
+        <span>@Model.Id</span>
+    </div>
+    <div>
+        <label>Email:</label>
+        <span>@Model.Email</span>
+    </div>
+  
+</div>
+@code {
+    EmployeeDto Model = new();
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await employeeService.GetEmployee(Id);
+    }
+}

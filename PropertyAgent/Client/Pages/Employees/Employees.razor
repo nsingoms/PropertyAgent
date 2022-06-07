@@ -1,0 +1,39 @@
+﻿@page "/employees/"
+@inject IEmployeeService EmployeeService
+
+@if(members==null)
+{
+    <h1>Loading</h1>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+@foreach (var member in members)
+        {
+            <Member member="member"></Member>
+        }</div>
+    </div>
+}
+
+ 
+
+
+
+@code {
+
+
+    private IEnumerable<EmployeeDto> members = new List<EmployeeDto>();
+
+    public async Task GetMembers()
+    {
+        members = await EmployeeService.GetEmployees();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetMembers();
+    }
+
+
+}

@@ -1,0 +1,35 @@
+﻿<div class="card col-md-3 m-2">
+    <div class="card-img-wrapper">
+
+        @if (string.IsNullOrEmpty(member.ProfilePic))
+        {
+            <img src="/noimage.png" alt=@member.KnownAs class="card-img-top" />
+        }
+        else
+        {
+            <img src="@member.ProfilePic"  alt=@member.KnownAs class="card-img-top" />
+        }
+           
+        <ul class="list-inline member-icons animate text-center">
+            <li class="list-inline-item"><a class="btn btn-primary" href="@($"employees/{member.Id}")"><i class="oi oi-eye"></i></a></li>
+            <li class="list-inline-item"><button class="btn btn-primary"><i class="oi oi-heart"></i></button></li>
+            <li class="list-inline-item"><a class="btn btn-primary" href="" ><i class="oi oi-envelope-closed "></i></a></li>
+        </ul>
+    </div>
+    <div class="card-body p-1">
+        <h6 class="card-title text-center mb-1">
+            <i class="oi oi-person"></i> &nbsp;
+            @member.KnownAs  
+        </h6>
+        <p class="card-text text-muted text-center">
+            <i class="oi oi-map-marker"></i> &nbsp;
+            @member.Gender
+        </p>
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public EmployeeDto member{ get; set; }
+}

@@ -1,0 +1,75 @@
+﻿@page "/my-profile"
+@inject IEmployeeService EmployeeService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILocalStorageService _service
+@inject IMapper Mapper
+@inject HttpClient Http
+
+
+<h3>EditProfile</h3>
+<EditForm Model="employeeDto" OnValidSubmit="SaveChanges">
+    <div class="form-group">
+        <label >First Name</label>
+        <InputText type="text" class="form-control" @bind-Value="employeeDto.FirstName"></InputText>
+    </div>
+    <div class="form-group">
+        <label >Last Name</label>
+        <InputText type="text" class="form-control" @bind-Value="employeeDto.LastName" ></InputText>
+    </div>
+    <div class="form-group">
+        <label >Known As</label>
+        <InputText type="text" class="form-control" @bind-Value="employeeDto.KnownAs"></InputText>
+    </div>
+    <div class="form-group">
+        <label >Gender</label>
+        <InputRadioGroup  @bind-Value="employeeDto.Gender">
+            <InputRadio Value="Gender.Male"></InputRadio> Male
+            <InputRadio Value="Gender.Female"></InputRadio> Female
+        </InputRadioGroup>
+        
+    </div>
+    <div class="form-group mt-3 ">
+         <PhotoEditor OnChange="AssignImageUrl"></PhotoEditor>
+    </div>
+     <div class="card-img mt-3 ">
+       
+    </div>
+    
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary"> Update Profile</button>
+    </div>
+    
+</EditForm>
+
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = default!;
+
+
+    
+    private void AssignImageUrl(string imgUrl) => employeeUpdateDto.ProfilePic = imgUrl;
+    EmployeeDto employeeDto = new();
+    EmployeeUpdateDto employeeUpdateDto = new(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthState;
+
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            var Id = authState.User.FindFirst(c => c.Type.Contains("nameid")).Value;
+
+            employeeDto = await EmployeeService.GetEmployee(Id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task SaveChanges()
+    {
+        Mapper.Map(employeeDto, employeeUpdateDto);
+
+        await EmployeeService.UpdateEmployee(employeeUpdateDto);
+    }
+
+}
