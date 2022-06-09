@@ -8,17 +8,25 @@
   <div class="row">
     @foreach(var prop in properties)
     {
-          <PropertyComponent property="prop"></PropertyComponent>
+          <PropertyComponent property="prop" OnPropertyDelete="DeleteProperty"></PropertyComponent>
     }
   
    </div>
    
 @code{
+
     IEnumerable<PropertyDto> properties = new List<PropertyDto>();
+   
 
     protected override async Task OnInitializedAsync()
     {
         properties = await PropertyService.GetPropertiesAsync();
+    }
+     private async Task DeleteProperty(int Id)
+    {
+        await PropertyService.DeletePropertyAsync(Id);
+         await PropertyService.GetPropertiesAsync();
+        StateHasChanged();
     }
 
    }

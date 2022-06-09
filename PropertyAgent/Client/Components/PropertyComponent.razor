@@ -18,11 +18,24 @@
         <p>@property.Description</p>
          <p>@property.Location</p>
          
-         <div class="btn-group">
-             <a class="btn btn-primary" href="@($"properties/edit/{property.Id}")">Edit</a>
-             <button class="btn btn-primary" @onclick="DeleteProperty">Delete</button>
-         </div>
+         <AuthorizeView>
+             <Authorized>
+                 <div class="btn-group col-md-12">
+                     <a class="btn btn-primary" href="@($"properties/edit/{property.Id}")">Edit</a>
+                     <button class="btn btn-danger" @onclick="(args)=>PropertyDelete(args,property.Id)">Delete</button>
+                 </div>
                    
+             </Authorized>
+             <NotAuthorized>
+                  <div class="btn-group col-md-12">
+                     <a class="btn btn-primary" href="@($"properties/{property.Id}")"> View Property</a>
+                    
+                 </div>
+                   
+             </NotAuthorized>
+         </AuthorizeView>
+         
+       
     </div>
      
 </div></div>
@@ -30,10 +43,14 @@
 @code {
     [Parameter]
     public PropertyDto property { get; set; }
+    
+     [Parameter]
+    public EventCallback<int> OnPropertyDelete { get; set; }
 
-    private async Task DeleteProperty()
+    private async Task PropertyDelete(MouseEventArgs e, int name)
     {
-        await PropertyService.DeletePropertyAsync(property.Id);
-        StateHasChanged();
+        await OnPropertyDelete.InvokeAsync(name);
     }
+
+   
 }

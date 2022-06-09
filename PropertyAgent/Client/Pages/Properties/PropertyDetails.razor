@@ -1,0 +1,14 @@
+﻿@page "/properties/{id:int}"
+@inject IProperty PropertyService
+
+<h3>PropertyDetails</h3>
+@code {
+    public PropertyDto Property { get; set; }
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Property = await PropertyService.GetPropertyAsync(Id);
+    }
+}

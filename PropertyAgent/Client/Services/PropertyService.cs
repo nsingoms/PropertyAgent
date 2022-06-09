@@ -50,8 +50,8 @@
 
         public async Task DeletePropertyAsync(int id)
         {
-            var response = await _httpClient.DeleteAsync($"property/{id}");
-            response.EnsureSuccessStatusCode();
+            await _httpClient.DeleteAsync($"property/{id}");
+           
         }
 
         public async Task UpdatePropertyAsync(PropertyDto propertyDto)
