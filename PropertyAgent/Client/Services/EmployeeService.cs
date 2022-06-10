@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
 namespace PropertyAgent.Client.Services
 {
@@ -10,7 +11,11 @@ namespace PropertyAgent.Client.Services
         public EmployeeService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            _options = new JsonSerializerOptions { 
+                PropertyNameCaseInsensitive = true ,
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
         }
         public async Task<EmployeeDto> GetEmployee(string id)
         {

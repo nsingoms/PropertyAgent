@@ -5,10 +5,12 @@
         public AutoMapperProfile()
         {
             CreateMap<EmployeeDto, AppUser>();
-            CreateMap<AppUser, EmployeeDto>();
+            CreateMap<AppUser, EmployeeDto>()
+                .ForMember(dest => dest.PropertyDtos, opt => opt.MapFrom(src => src.Properties));
             CreateMap<EmployeeUpdateDto,AppUser>();
             CreateMap<PropertyDto, Property>();
-            CreateMap<Property, PropertyDto>();
+            CreateMap<Property, PropertyDto>()
+                .ForMember(dest => dest.Employee, opt => opt.MapFrom(src => src.AppUser));
             CreateMap<PhotoDto, Photo>();
             CreateMap<Photo, PhotoDto>();
            

@@ -34,7 +34,10 @@ namespace PropertyAgent.Server.Services
 
         public async Task<Property> GetProperty(int id)
         {
-            return await _context.Properties.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Properties
+                .Include(a=>a.AppUser)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<Property> UpdateProperty(Property property)

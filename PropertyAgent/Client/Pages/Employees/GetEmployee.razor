@@ -1,7 +1,19 @@
 ﻿@page "/employees/{id}"
 @inject IEmployeeService employeeService
 <h3>Employee Details</h3>
-<div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+             <div class="card ">
+        @if(Model.ProfilePic==null)
+        {
+            <img src="noimage.png" class="img-fluid card-img" />
+        }
+        else
+        {
+             <img src="@Model.ProfilePic" class="img-fluid card-img" />
+        }
+    </div>
     <div>
         <label>Name:</label>
         <span>@Model.Id</span>
@@ -10,6 +22,18 @@
         <label>Email:</label>
         <span>@Model.Email</span>
     </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+            @foreach (var prop in Model.PropertyDtos)
+            {
+                <PropertyComponent property="prop"></PropertyComponent>
+            }</div>
+        </div>
+
+    </div>
+   
+    
   
 </div>
 @code {

@@ -1,4 +1,5 @@
 ﻿using PropertyAgent.Shared.Enums;
+using System.Text.Json.Serialization;
 
 namespace PropertyAgent.Shared.Dtos
 {
@@ -11,5 +12,7 @@ namespace PropertyAgent.Shared.Dtos
         public string KnownAs { get; set; } = default!;
         public Gender Gender { get; set; }
         public string ProfilePic { get; set; } = default!;
+        
+        public virtual List<PropertyDto> PropertyDtos { get; set; } = new();
     }
 }

@@ -15,7 +15,9 @@ namespace PropertyAgent.Server.Services
         public async Task<EmployeeDto> GetEmployee(string id)
         {
             var employee = await _context.Users
+                .Include(p=>p.Properties)
                 .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(e => e.Id == id);
 
             return employee;

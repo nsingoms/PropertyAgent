@@ -43,13 +43,14 @@ namespace PropertyAgent.Server.Controllers
         {
             try
             {
+                PropertyDto propertyDto = new();
                 var property = await _propertyInterface.GetProperty(id);
-                return Ok(property);
+                var prop=_mapper.Map<PropertyDto>(property);
+                return Ok(prop);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
         [HttpPut]

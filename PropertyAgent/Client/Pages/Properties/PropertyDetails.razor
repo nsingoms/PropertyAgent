@@ -1,9 +1,20 @@
 ﻿@page "/properties/{id:int}"
 @inject IProperty PropertyService
 
-<h3>PropertyDetails</h3>
+<div>
+    
+    <ul>
+        <li>@Property.Id</li>
+         <li>@Property.Location</li>
+          <li>@Property.Description</li>
+           <li>@Property.Photos</li>
+            <li>@Property.Title</li>
+             <li>@Property.Employee.Id</li>
+             
+    </ul>
+</div>
 @code {
-    public PropertyDto Property { get; set; }
+    public PropertyDto Property { get; set; } = new();
     [Parameter]
     public int Id { get; set; }
 

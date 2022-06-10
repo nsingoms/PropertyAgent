@@ -7,6 +7,8 @@ namespace PropertyAgent.Client.Helpers
         public ProfileMapper()
         {
             CreateMap<EmployeeDto, EmployeeUpdateDto>();
+            
+
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.FileProviders;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +15,18 @@ builder.Services.AddScoped<IEmployeeInterface, EmployeeRepo>();
 builder.Services.AddScoped<IPropertyInterface, PropertyRepo>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddMvc()
+               .AddJsonOptions(opt =>
+               {
+                   opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+               });
+
 //Database
 builder.Services.AddDbContext<PropertyDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 //Identity
 builder.Services.AddAuthentication(options =>

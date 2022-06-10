@@ -1,4 +1,6 @@
-﻿namespace PropertyAgent.Shared.Dtos
+﻿using System.Text.Json.Serialization;
+
+namespace PropertyAgent.Shared.Dtos
 {
     public class PropertyDto
     {
@@ -10,6 +12,8 @@
         public string Title { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public ICollection<PhotoDto> Photos { get; set; } 
+        public ICollection<PhotoDto> Photos { get; set; }
+     
+        public virtual EmployeeDto Employee { get; set; } = new EmployeeDto();
     }
 }

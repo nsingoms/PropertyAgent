@@ -1,4 +1,6 @@
-﻿namespace PropertyAgent.Client.Services
+﻿using System.Text.Json.Serialization;
+
+namespace PropertyAgent.Client.Services
 {
     public class PropertyService : IProperty
     {
@@ -10,7 +12,12 @@
         {
             _httpClient = httpClient;
             _logger = logger;
-            _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            _options = new JsonSerializerOptions
+                            {
+                                PropertyNameCaseInsensitive = true ,
+                                ReferenceHandler= ReferenceHandler.Preserve,
+                                WriteIndented = true
+            };
         }
 
 
