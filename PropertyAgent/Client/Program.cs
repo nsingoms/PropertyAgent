@@ -13,6 +13,7 @@ builder.Services.AddScoped<AuthStateProvider>();
 builder.Services.AddAutoMapper(typeof(ProfileMapper).Assembly);
 builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<AuthStateProvider>());
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddAntDesign();
 
 await builder.Build().RunAsync();
 

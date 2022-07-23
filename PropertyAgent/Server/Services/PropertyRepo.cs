@@ -22,7 +22,7 @@ namespace PropertyAgent.Server.Services
 
         public async Task DeleteProperty(int id)
         {
-            _context.Properties.Remove(await _context.Properties.FirstOrDefaultAsync(x => x.Id == id));
+            _context.Properties.Remove(await _context.Properties.Include(p=>p.Photos).FirstOrDefaultAsync(x => x.Id == id));
         }
 
         public async Task<IEnumerable<PropertyDto>> GetProperties()

@@ -5,12 +5,12 @@
         {
                @foreach(var photo in property.Photos)
             {    
-         <img src="@photo.Url" class="card-img" />
+         <img src="@photo.Url" class="card-img" height="300"  />
             }
         }
         else
         {
-             <img src="/houseimg.jpg" class="card-img" />
+             <img src="/houseimg.jpg" class="card-img" height="300"/>
         }
 
     <div class="card-footer">
@@ -22,7 +22,7 @@
              <Authorized>
                  <div class="btn-group col-md-12">
                      <a class="btn btn-primary" href="@($"properties/edit/{property.Id}")">Edit</a>
-                     <button class="btn btn-danger" @onclick="(args)=>PropertyDelete(args,property.Id)">Delete</button>
+                     <button class="btn btn-danger" @onclick="()=>DeleteProperty(property.Id)">Delete</button>
                  </div>
                    
              </Authorized>
@@ -44,13 +44,18 @@
     [Parameter]
     public PropertyDto property { get; set; }
     
-     [Parameter]
-    public EventCallback<int> OnPropertyDelete { get; set; }
-
-    private async Task PropertyDelete(MouseEventArgs e, int name)
+    // [Parameter]
+    //public EventCallback<int> OnPropertyDelete { get; set; }
+    
+       private async Task DeleteProperty(int Id)
     {
-        await OnPropertyDelete.InvokeAsync(name);
+        await PropertyService.DeletePropertyAsync(Id);
+         
     }
+    //private async Task PropertyDelete(MouseEventArgs e, int name)
+    //{
+    //    await OnPropertyDelete.InvokeAsync(name);
+    //}
 
    
 }

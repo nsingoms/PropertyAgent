@@ -44,22 +44,6 @@ namespace PropertyAgent.Client.Services
 
 
         }
-        public async Task<IEnumerable<PhotoDto>> UploadPropertyImages(IEnumerable<MultipartFormDataContent> content)
-        {
-            var postResult = await _httpClient.PostAsync("property/add-Photo", (HttpContent)content);
-            var postContent = await postResult.Content.ReadAsStringAsync();
-
-            if (postResult.IsSuccessStatusCode)
-            {
-               IEnumerable<PhotoDto> photoDtos = JsonSerializer.Deserialize<PhotoDto[]>(postContent);
-                return photoDtos;
-            }
-            else
-            {
-                throw new ApplicationException(postContent);
-            }
-
-
-        }
+     
     }
 }

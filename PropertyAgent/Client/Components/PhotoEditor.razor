@@ -8,11 +8,12 @@
     </div>
 }
 
+
 @code
 {
-       [Parameter]
-        public string ImgUrl { get; set; }
-
+    [Parameter]
+    public string ImgUrl { get; set; }
+   
         [Parameter]
         public EventCallback<string> OnChange { get; set; }
         
@@ -23,16 +24,13 @@
                 {
                 if (imageFile != null)
                     {
-                    var resizedFile = await imageFile.RequestImageFileAsync("image/png", 300, 500);
-
-                    using var ms = resizedFile.OpenReadStream(resizedFile.Size);
-                    var content = new MultipartFormDataContent();
-                    content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
-                    content.Add(new StreamContent(ms, Convert.ToInt32(resizedFile.Size)), "image", imageFile.Name);
-
-                    ImgUrl = await photoService.UploadPropertyImage(content);
-
-                    await OnChange.InvokeAsync(ImgUrl);
+                        var resizedFile = await imageFile.RequestImageFileAsync("image/png", 300, 500);
+                        using var ms = resizedFile.OpenReadStream(resizedFile.Size);
+                        var content = new MultipartFormDataContent();
+                        content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+                        content.Add(new StreamContent(ms, Convert.ToInt32(resizedFile.Size)), "image", imageFile.Name);
+                        ImgUrl = await photoService.UploadPropertyImage(content);
+                        await OnChange.InvokeAsync(ImgUrl);
                     }
                 }
             }

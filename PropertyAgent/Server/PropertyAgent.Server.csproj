@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="CloudinaryDotNet" Version="1.18.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.18.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
@@ -17,8 +17,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.18.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.19.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Development\unsafe_uploads\" />
     <Folder Include="ExtensionMethods\" />
     <Folder Include="StaticFiles\Images\" />
     <Folder Include="StaticFiles\" />

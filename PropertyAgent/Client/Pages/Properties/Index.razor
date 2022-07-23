@@ -8,7 +8,7 @@
   <div class="row">
     @foreach(var prop in properties)
     {
-          <PropertyComponent property="prop" OnPropertyDelete="DeleteProperty"></PropertyComponent>
+          <PropertyComponent property="prop" ></PropertyComponent>
     }
   
    </div>
@@ -22,11 +22,11 @@
     {
         properties = await PropertyService.GetPropertiesAsync();
     }
-     private async Task DeleteProperty(int Id)
-    {
-        await PropertyService.DeletePropertyAsync(Id);
-         await PropertyService.GetPropertiesAsync();
-        StateHasChanged();
-    }
+    // private async Task DeleteProperty(int Id)
+    //{
+    //    await PropertyService.DeletePropertyAsync(Id);
+    //     await PropertyService.GetPropertiesAsync();
+    //    StateHasChanged();
+    //}
 
    }
